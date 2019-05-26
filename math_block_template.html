@@ -2,7 +2,16 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8" />
-	<title>Direct Manipulation of Math Symbols</title>
+    <title>PSB's Calculator</title>
+    <style type="text/css">
+        .info {
+            position: absolute;
+            z-index: 1;
+            left: 550px;
+            color: dimgray;
+            opacity: 0.8;
+        }
+    </style>
 </head>
 
 <body>
@@ -10,9 +19,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.4.6/fabric.min.js" type="text/javascript"></script>
     <script src="src/math.min.js" type="text/javascript"></script>
 
+    <div class="info">
+        Execute = Enter key, Disassemble = \ key(won-sign or backslash)
+    </div>
+    <div class="info" style="padding: 0px 0px 0px 40px">
+        <br>Duplicate = ' key(single-quote), Destroy = ` key(back-quote)
+    </div>
+    
     <canvas id="c" width="1024" height="768">
         Canvas not supported
-        <canvas id="popup" width="50" height="25">Hmm...</canvas>
     </canvas>
 
     <script>
@@ -174,7 +189,6 @@
                     MathApp.selected_block = null;
                     MathApp.canvas.requestRenderAll();
                 }
-
             }
             // duplicate
             else if (key === "'") {
@@ -208,8 +222,8 @@
                     }
                 }
             }
-            else if (key === "`") {
-                // destroy
+            // destroy
+            else if (key === "`") { 
                 if( MathApp.selected_block != null )
                 {
                     let block = MathApp.selected_block;
@@ -247,7 +261,6 @@
             {
                 let canvas_p = MathApp.transformToCanvasCoords(window_p);
 
-                // assemble
                 if( MathApp.selected_block != null )
                 {
                     MathApp.selected_block.onDeselected();
@@ -333,6 +346,7 @@
             {
                 let canvas_p = MathApp.transformToCanvasCoords(window_p);
 
+                // assemble
                 if(MathApp.selected_block !== null)
                 {
                     let target;
@@ -547,12 +561,10 @@
                         selectable: false
                     });
 
-                    //
                     MathApp.canvas.add(background);
                     MathApp.canvas.add(img);
                     MathApp.canvas.add(boundary);
 
-                    //
                     block.visual_items.push(background);
                     block.visual_items.push(img);
                     block.visual_items.push(boundary);
@@ -567,7 +579,5 @@
             MathApp.initialize();
         });
     </script>
-    
 </body>
 </html>
-
